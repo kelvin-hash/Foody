@@ -2,9 +2,12 @@
 const {Queue} = require("bullmq");
 const IORedis = require("ioredis");
 
+
+const redisUrl = process.env.REDIS_URL || "redis://127.0.0.1:6379";
 // create a new instance of ioredis
-const connection = new IORedis({
-   maxRetriesPerRequest: null
+const connection = new IORedis(redisUrl,{
+   maxRetriesPerRequest: null,
+   tls: redisUrl.includes("rediss://") ? {} : undefined
 });
 // create a payment queue 
  const paymentQueue = new Queue("paymentQueue",{
