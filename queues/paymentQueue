@@ -1,0 +1,14 @@
+// IMPORT BULL MQ MODULE AND IOREDIS CLASS
+const {Queue} = require("bullmq");
+const IORedis = require("ioredis");
+
+// create a new instance of ioredis
+const connection = new IORedis({
+   maxRetriesPerRequest: null
+});
+// create a payment queue 
+ const paymentQueue = new Queue("paymentQueue",{
+    connection
+ })
+ module.exports= paymentQueue
+
