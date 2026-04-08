@@ -14,6 +14,10 @@ const authRoute = require("./routes/authRoutes");
 const orderRoute = require("./routes/order");
 // import the mpesa callback route
 const mpesaRoute = require("./routes/mpesaRoute");
+// import the order status route
+const orderStatusRoute = require("./routes/orderStatusRoute");
+// import the stripe webhook route
+const stripeWebhook = require("./routes/stripeWebhook");
 // import the restaurant routea for providing restaurant data to the frontend
 const restaurantRoute = require("./routes/restaurant");
 // call the express function to create a sever instance
@@ -28,6 +32,8 @@ mongoose.connect(process.env.MONGOOSE_URI)
 app.use(cors({
     origin:'*',
 }));
+//because stripe sends webhook events as raw json we need to use express.raw middleware for the stripe webhook route
+app.use('/api/stripe',stripeWebhook);
 // use express.json to parse incoming JSON requests
 app.use(express.json());
 
@@ -36,6 +42,7 @@ app.use('/api/auth',authRoute);
 app.use('/api/orders',orderRoute);
 app.use('/api/mpesa',mpesaRoute);
 app.use('/api/restaurants',restaurantRoute);
+app.use('/api/status',orderStatusRoute);
 
 
 // test route to check if the server is running

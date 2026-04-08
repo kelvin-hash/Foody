@@ -96,7 +96,7 @@ new Worker(
 
       await session.commitTransaction();
       session.endSession();
-
+      
     } catch (error) {
 
       await session.abortTransaction();
