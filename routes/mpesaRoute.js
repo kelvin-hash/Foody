@@ -14,7 +14,9 @@ router.post("/callback",async (req,res)=>{
             payload:req.body
         });
         // push a job  to the queue for processing 
+        console.log("Adding job to the queue");
         await paymentQueue.add("processPayment",req.body);
+        console.log("Job added to the queue");
         // return a succes response to the client
         res.status(200).json({message:"received"});
     } catch (error) {
