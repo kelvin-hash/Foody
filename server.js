@@ -32,7 +32,13 @@ mongoose.connect(process.env.MONGOOSE_URI)
 //MIDDLEWARE
 // use cors to allow cross-origin requests
 app.use(cors({
-    origin:'*',
+  origin: [
+    "https://foody-frontend-4i7t.onrender.com",
+    "http://localhost:5173"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
 }));
 //because stripe sends webhook events as raw json we need to use express.raw middleware for the stripe webhook route
 app.use('/api/stripe',stripeWebhook);
