@@ -2,6 +2,8 @@
 const dotenv = require('dotenv');
 // load environment variables from .env file
 dotenv.config();
+//the worker that will process the mpesa payment callbacks
+require("./workers/paymentWorker");
 // the express framework to create the server and handle routes
 const express = require('express');
 // mongoose to help with db connection
