@@ -16,8 +16,9 @@ const IORedis = require("ioredis");
 const Payment = require("../models/Payment");
 const Order = require("../models/Order");
 // initiate a connection to redis
-const connection = new IORedis({
-   maxRetriesPerRequest: null
+const connection = new IORedis(process.env.REDIS_URL, {
+  maxRetriesPerRequest: null,
+  tls: process.env.REDIS_URL.includes("rediss://") ? {} : undefined
 });
 // intantiate an instance of a worker
 new Worker(
